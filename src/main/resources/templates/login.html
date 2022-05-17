@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+    <input type="text"  id="userId" name="userId"><br>
+<input type="password" id="pw" name="pw">
+<input type="button" id="btn" value="로그인">
+
+</body>
+<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script>
+
+    document.getElementById("btn").addEventListener("click", function() {
+
+        let id = document.getElementById("userId").value;
+        let pw = document.getElementById("pw").value;
+
+        console.log(id , pw)
+
+        let v = {
+            "userId" : id,
+            "userPw" : pw
+        }
+        let jv = JSON.stringify(v);
+        $.ajax({
+            type: "POST",
+            url: "/users/login",
+            data: jv,
+            contentType: 'application/json',
+            success: function() {
+                alert('로그인 성공');
+                location.href = "/";
+
+            },
+            error: function(err) {
+                console.log(err)
+                alert('로그인 정보가 올바르지 않습니다.');
+            }
+        });
+    });
+</script>
+</html>
